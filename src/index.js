@@ -1,30 +1,33 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faSpinner} from "@fortawesome/free-solid-svg-icons";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
+    state = {latitude: null, errorMessage: ""};
 
-        this.state = {
-            latitude: null
-        };
-
+    componentDidMount() {
         window.navigator.geolocation.getCurrentPosition(
-
-            (position) => {
-                this.setState({ latitude: position.coords.latitude  });
-            },
-            (error) => console.log(error)
+            (position) => this.setState({ latitude: position.coords.latitude }),
+            (error) => this.setState({ errorMessage: error.message })
         );
     }
 
     render() {
-        const { latitude } = this.state;
+        const { latitude, errorMessage } = this.state;
 
-        return <div>Latitude : {latitude ? latitude : <FontAwesomeIcon icon={faSpinner} spin /> }</div>;
+        if (errorMessage && !latitude) {
+            return <div>Error: {errorMessage}</div>;
+        } else if (!errorMessage && latitude) {
+            return <div>Latitude: {latitude}</div>;
+        }
+
+        return (
+            <div>
+                Loading...&nbsp;
+                <FontAwesomeIcon icon={faSpinner} spin />
+            </div>
+        );
     }
 }
 
