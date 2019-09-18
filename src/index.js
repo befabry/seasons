@@ -31,12 +31,15 @@ class App extends React.Component {
     }
 
     render() {
-        const { latitude, errorMessage } = this.state;
+        const { latitude, errorMessage, time } = this.state;
 
         return (
             <div className="border red">
-                {/*Warning : don't do this in prod it's re-rendered every seconds*/}
-                {this.renderContent(latitude, errorMessage, this.state.time)}
+                {/*
+                Warning : don't do this in prod it's re-rendered every seconds
+                Use an other smaller component
+                */}
+                {this.renderContent(latitude, errorMessage, time)}
             </div>
         );
     }
