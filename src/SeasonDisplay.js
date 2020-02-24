@@ -26,7 +26,7 @@ const getSeason = (latitude, month) => {
 };
 
 const SeasonDisplay = (props) => {
-    const { latitude, time } = props;
+    const { latitude } = props;
     const season = getSeason(latitude, new Date().getMonth());
     const { text, iconName } = seasonConfig[season];
 
@@ -39,8 +39,6 @@ const SeasonDisplay = (props) => {
             />
             <h1>{text}</h1>
             <br />
-            {/*Create a time state here with a Time component. I will not be doing it, this being a tutorial*/}
-            <h2>Time is : {time}</h2>
             <FontAwesomeIcon
                 icon={iconName}
                 size="8x"
